@@ -9,7 +9,7 @@ public class App {
 	public static void main(String[] args) {
 		
 		TelaPrincipal mainScreen = new TelaPrincipal();
-		QuartoDAO quartoDAO = new QuartoDAO();
+		QuartoDAO quartoDAO = new QuartoDAO(null);
 		
 		List<Quarto> quartos = quartoDAO.listarTodos();
 		

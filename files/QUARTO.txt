@@ -1,0 +1,5 @@
+01, DISPONIVEL, Suíte com cama king size mais cama de solteiro, 3, completo
+02, DISPONIVEL, Suíte master, 2, completo
+03, DISPONIVEL, Triplo com uma cama de casal, 4, completo
+04, DISPONIVEL, Suíte com mais cama de solteiro, 3, completo
+05, DISPONIVEL, Triplo com uma cama de casal, 4, completo
