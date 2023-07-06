@@ -1,5 +1,6 @@
 import java.util.List;
 
+import database.DB;
 import modelo.Quarto;
 import repositorios.QuartoDAO;
 import view.TelaPrincipal;
@@ -9,12 +10,12 @@ public class App {
 	public static void main(String[] args) {
 		
 		TelaPrincipal mainScreen = new TelaPrincipal();
-		QuartoDAO quartoDAO = new QuartoDAO(null);
+		QuartoDAO quartoDAO = new QuartoDAO(DB.getConnection());
 		
-		List<Quarto> quartos = quartoDAO.listarTodos();
+		List<Quarto> quartos = quartoDAO.encontrarTodos();
 		
 		mainScreen.printBoasVindas();
-		mainScreen.printListaDeQuartos(quartos);
+		mainScreen.listarQuartosComStatus(quartos);
 		
 		// tela principal
 		// boas vindas

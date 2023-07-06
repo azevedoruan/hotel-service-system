@@ -10,10 +10,10 @@ public class TelaPrincipal {
 		System.out.println("================== HOTEL SERVICE v1.0.0 ==================");
 	}
 	
-	public void printListaDeQuartos(List<Quarto> lista) {
-		System.out.println("Quartos");
+	public void listarQuartosComStatus(List<Quarto> lista) {
+		System.out.println("QUARTOS");
 		for (Quarto apto : lista) {
-			System.out.println("Apto: " + apto.getNumero() + " " + apto.getStatus().toString());
+			System.out.println("Apto: " + String.format("%02d", apto.getNumero()) + " " + apto.getStatus().toString());
 		}
 	}
 }
