@@ -3,13 +3,18 @@ package view;
 import java.util.List;
 import java.util.Scanner;
 
-import controle.ControladorHotel;
 import modelo.Quarto;
+import servicos.QuartoServico;
 import view.exceptions.TelaException;
 
 public class TelaConsultaQuartos extends Tela {
 
+	private QuartoServico servico;
 	private int numQuartoSelecionado = 0;
+	
+	public TelaConsultaQuartos() {
+		servico = new QuartoServico();
+	}
 	
 	@Override
 	public void cabecalho() {
@@ -21,7 +26,7 @@ public class TelaConsultaQuartos extends Tela {
 	public void conteudo() {
 		if (numQuartoSelecionado != 0) {
 			
-			Quarto apto = ControladorHotel.getInstancia().consultarQuartoPorNumero(numQuartoSelecionado);
+			Quarto apto = servico.consultarQuartoPorNumero(numQuartoSelecionado);
 			System.out.println("Numero: " + apto.getNumero());
 			System.out.println("Descricao: " + apto.getDescricao());
 			System.out.println("Capacidade maxima: " + apto.getCapacidadeMax());
@@ -29,7 +34,7 @@ public class TelaConsultaQuartos extends Tela {
 			System.out.println("Preco unitario: " + apto.getClassificacao().getPrecoPorHospede());
 		}
 		else {
-			List<Quarto> aptos = ControladorHotel.getInstancia().consultarTodosQuartosCadastrados();
+			List<Quarto> aptos = servico.consultarTodosQuartosCadastrados();
 			for (Quarto ap : aptos) {
 				System.out.println("Apto: " + String.format("%02d", ap.getNumero()) + ", classificacao: " + ap.getClassificacao().getDescricao() + ", preco unitario: R$" + ap.getClassificacao().getPrecoPorHospede());
 			}
@@ -47,7 +52,7 @@ public class TelaConsultaQuartos extends Tela {
 				return this;
 			}
 			
-			int qtdeApto = ControladorHotel.getInstancia().qtdeQuartosCadastrados();
+			int qtdeApto = servico.qtdeQuartosCadastrados();
 			System.out.println("Selecione um quarto:");
 			System.out.println("0 -> Voltar");
 			int opcao = sc.nextInt();
