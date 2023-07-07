@@ -59,6 +59,34 @@ public class QuartoDAO {
 		}
 	}
 	
+	public Quarto encontrarPorNumero(int num) {
+		
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			pst = conn.prepareStatement("SELECT Q.*, C.*"
+					+ "FROM QUARTO Q INNER JOIN CLASSIFICACAO C ON(Q.fk_descClassificacao = C.descricao)"
+					+ "WHERE Q.numero = ?");
+			
+			pst.setInt(1, num);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				Classificacao classificacao = instantiateClassificacao(rs);
+				Quarto ap = instantiateQuarto(rs, classificacao);
+				return ap;
+			}
+			return null;
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(pst);
+			DB.closeResultSet(rs);
+		}
+	}
+	
 	public List<Quarto> encontrarTodos() {
 		
 		PreparedStatement pst = null;
@@ -96,7 +124,7 @@ public class QuartoDAO {
 	
 	private Classificacao instantiateClassificacao(ResultSet rs) throws SQLException {
 		Classificacao classe = new Classificacao();
-		classe.setDescricao(rs.getString("descricao"));
+		classe.setDescricao(rs.getString("fk_descClassificacao"));
 		classe.setPrecoPorHospede(rs.getDouble("precoPorHospede"));
 		
 		return classe;
@@ -111,6 +139,7 @@ public class QuartoDAO {
 			
 		Quarto newAp = new Quarto(rs.getInt("numero"),
 				status,
+				rs.getString("descricao"),
 				rs.getInt("capacidadeMax"),
 				classificacao);
 		
