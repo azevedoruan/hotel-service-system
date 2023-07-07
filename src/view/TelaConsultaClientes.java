@@ -1,7 +1,10 @@
 package view;
 
+import java.util.List;
 import java.util.Scanner;
 
+import controle.ControladorHotel;
+import modelo.ClienteFisico;
 import view.exceptions.TelaException;
 
 public class TelaConsultaClientes extends Tela {
@@ -26,7 +29,14 @@ public class TelaConsultaClientes extends Tela {
 			System.out.println("se cnpj for valido, consultar empresa");
 			System.out.println("descreve empresa");	
 		} else if (opcaoSelecionada == 2) {
-			
+			List<ClienteFisico> clientes = ControladorHotel.getInstancia().consultarTodosClientesFisicosCadastrados();
+			for (ClienteFisico cf : clientes) {
+				System.out.print(cf.getNome());
+				if (cf.getEmpresaVinculo().getNome() != null)
+					System.out.print(" vinculado a " + cf.getEmpresaVinculo().getNome());
+				System.out.println();
+			}
+			System.out.println();
 		}
 	}
 
